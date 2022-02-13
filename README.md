@@ -6,7 +6,7 @@ Rename .env.local to .env and update the environment variables.
 
 Finally, run `go run main.go`.
 
-*NOTE*: If you are running on MacOS you'll need to run `sudo go run main.go`.
+**NOTE**: If you are running on MacOS you'll need to run `sudo go run main.go`.
 
 ## Using systemd
 Update the environment variables in the systemd/proc-peepin.service file.
