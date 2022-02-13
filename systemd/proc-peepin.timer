@@ -1,0 +1,10 @@
+# /etc/systemd/system/proc-peepin.timer
+[Unit]
+Description=Process Recorder Timer
+
+[Timer]
+OnUnitActiveSec=10s
+OnBootSec=10s
+
+[Install]
+WantedBy=timers.target

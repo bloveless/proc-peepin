@@ -1,0 +1,14 @@
+# /etc/systemd/system/proc-peepin.service
+[Unit]
+Description=Process Recorder
+
+[Service]
+Environment=HOST=YOUR_HOST
+Environment=INFLUX_API=YOUR_INFLUX_API
+Environment=INFLUX_TOKEN=YOUR_INFLUX_TOKEN
+Environment=INFLUX_EMAIL=YOUR_INFLUX_EMAIL
+Environment=INFLUX_BUCKET=YOUR_INFLUX_BUCKET
+
+type=oneshot
+ExecStart=/usr/local/bin/proc-peepin
+
