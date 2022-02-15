@@ -7,6 +7,7 @@ import (
 
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/joho/godotenv"
+	"github.com/shirou/gopsutil/v3/net"
 	"github.com/shirou/gopsutil/v3/process"
 )
 
@@ -56,6 +57,42 @@ func main() {
 		// write point asynchronously
 		writeAPI.WritePoint(p)
 	}
+
+	log.Println("Logging Network Traffic")
+
+	iocountersBefore, err := net.IOCounters(false)
+	if err != nil {
+		panic(err)
+	}
+
+	lastSentBefore := iocountersBefore[0].BytesSent
+	lastRecvBefore := iocountersBefore[0].BytesRecv
+
+	time.Sleep(4 * time.Second)
+
+	iocountersAfter, err := net.IOCounters(false)
+	if err != nil {
+		panic(err)
+	}
+
+	lastSentAfter := iocountersAfter[0].BytesSent
+	lastRecvAfter := iocountersAfter[0].BytesRecv
+
+	sentDelta := lastSentAfter - lastSentBefore
+	recvDelta := lastRecvAfter - lastRecvBefore
+
+	sentPerSec := float64(sentDelta) / 4
+	recvPerSec := float64(recvDelta) / 4
+
+	log.Printf("Network in %f B/s; Network out %f B/s", recvPerSec, sentPerSec)
+
+	p := influxdb2.NewPointWithMeasurement("host_process").
+		AddTag("host", os.Getenv("HOST")).
+		AddField("net_sent", sentPerSec).
+		AddField("net_recv", recvPerSec).
+		SetTime(time.Now())
+
+	writeAPI.WritePoint(p)
 
 	// Flush writes
 	writeAPI.Flush()

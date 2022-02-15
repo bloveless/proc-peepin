@@ -2,15 +2,16 @@ module proc-peepin
 
 go 1.17
 
-require github.com/shirou/gopsutil/v3 v3.22.1
+require (
+	github.com/influxdata/influxdb-client-go/v2 v2.7.0
+	github.com/joho/godotenv v1.4.0
+	github.com/shirou/gopsutil/v3 v3.22.1
+)
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deepmap/oapi-codegen v1.8.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/influxdata/influxdb-client-go/v2 v2.7.0 // indirect
 	github.com/influxdata/line-protocol v0.0.0-20200327222509-2487e7298839 // indirect
-	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
