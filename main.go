@@ -86,7 +86,7 @@ func main() {
 
 	log.Printf("Network in %f B/s; Network out %f B/s", recvPerSec, sentPerSec)
 
-	p := influxdb2.NewPointWithMeasurement("host_process").
+	p := influxdb2.NewPointWithMeasurement("host_network").
 		AddTag("host", os.Getenv("HOST")).
 		AddField("net_sent", sentPerSec).
 		AddField("net_recv", recvPerSec).
